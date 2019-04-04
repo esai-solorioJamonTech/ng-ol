@@ -2,7 +2,7 @@ import { Component, Input, AfterViewInit } from '@angular/core';
 import { Map, View, Overlay} from 'ol';
 import { fromLonLat } from 'ol/proj';
 import TileLayer from 'ol/layer/Tile';
-import OSM from 'ol/source/OSM';
+import XYZ from 'ol/source/XYZ';
 import { Point } from './map.models';
 
 
@@ -29,7 +29,12 @@ export class MapComponent implements AfterViewInit {
       target: 'map',
       layers: [
         new TileLayer({
-          source: new OSM()
+          source: new XYZ({
+            attributions: 'Tiles © <a href="https://services.arcgisonline.com/ArcGIS/' +
+                'rest/services/World_Topo_Map/MapServer">ArcGIS</a>',
+            url: 'https://server.arcgisonline.com/ArcGIS/rest/services/' +
+                'World_Topo_Map/MapServer/tile/{z}/{y}/{x}'
+          })
         })
       ],
       view: new View({
